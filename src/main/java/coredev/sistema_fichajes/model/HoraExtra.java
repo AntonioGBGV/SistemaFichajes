@@ -1,10 +1,51 @@
 package coredev.sistema_fichajes.model;
 
+import jakarta.persistence.*;
+import lombok.*;
 
-public enum HoraExtra {
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-    PENDIENTE,
-    APROBADO,
-    RECHAZADO
+@Entity
+@Table(name = "horas_extras")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class HoraExtra implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @Column(nullable = false)
+    private LocalDate fecha;
+
+    @Column(name = "horas_solicitadas", nullable = false)
+    private BigDecimal horasSolicitadas;
+
+    @Column(name = "horas_aprobadas")
+    private BigDecimal horasAprobadas;
+
+    @Column
+    private String motivo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoHoraExtra estado;
+
+    @ManyToOne
+    @JoinColumn(name = "aprobado_por")
+    private Usuario aprobadoPor;
+
+    public enum EstadoHoraExtra {
+        PENDIENTE,
+        APROBADA,
+        RECHAZADA
+    }
 }
