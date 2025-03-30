@@ -1,61 +1,60 @@
 # SistemaFichajes
 
-This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
 
-## Development
+# Desarrollo
+Cuando se inicia la aplicación, se ejecuta automáticamente docker compose up y la app se conecta a los servicios definidos en Docker. Docker debe estar disponible en el sistema actual.
 
-When starting the application `docker compose up` is called and the app will connect to the contained services.
-[Docker](https://www.docker.com/get-started/) must be available on the current system.
+Durante el desarrollo, se recomienda usar el perfil local.
+En IntelliJ puedes añadir -Dspring.profiles.active=local en las opciones de la máquina virtual (VM options) dentro de la configuración de ejecución ("Run Configuration") tras habilitar esta opción en "Modify options".
 
-During development it is recommended to use the profile `local`. In IntelliJ `-Dspring.profiles.active=local` can be
-added in the VM options of the Run Configuration after enabling this property in "Modify options". Create your own
-`application-local.yml` file to override settings for development.
+Crea tu propio archivo application-local.yml para sobrescribir configuraciones específicas del entorno de desarrollo.
 
-Lombok must be supported by your IDE. For IntelliJ install the Lombok plugin and enable annotation processing -
-[learn more](https://bootify.io/next-steps/spring-boot-with-lombok.html).
+Lombok debe estar soportado por tu IDE.
+En IntelliJ, instala el plugin de Lombok y activa el procesamiento de anotaciones (annotation processing)
 
-In addition to the Spring Boot application, the development server must also be started - for this
-[Node.js](https://nodejs.org/) version 22 is required. Angular CLI and required dependencies must be installed once:
+Frontend (Angular)
+Además de la aplicación Spring Boot, también se debe iniciar el servidor de desarrollo del frontend.
+Para esto, se requiere Node.js versión 22.
 
+Instala Angular CLI y las dependencias necesarias (esto solo una vez):
 ```
 npm install -g @angular/cli
 npm install
 ```
 
-The development server can be started as follows:
+Luego, puedes iniciar el servidor de desarrollo con:
 
 ```
 ng serve
 ```
 
-Your application is now accessible under `localhost:4200`.
+La aplicación ahora estará disponible en http://localhost:4200
 
 Add code using Angular schematics with `ng generate ...`.
 Frontend unit tests can be executed with `ng test`.
 Generate a messages.json for translation with `ng extract-i18n --format=json`.
 
-## Build
-
-The application can be built using the following command:
+## Construcción del proyecto (Build)
+Puedes compilar la aplicación con el siguiente comando:
 
 ```
 mvnw clean package
 ```
 
-Start your application with the following command - here with the profile `production`:
+Para ejecutarla en producción:
 
 ```
 java -Dspring.profiles.active=production -jar ./target/sistemaFichajes-0.0.1-SNAPSHOT.jar
 ```
 
-If required, a Docker image can be created with the Spring Boot plugin. Add `SPRING_PROFILES_ACTIVE=production` as
-environment variable when running the container.
+Si lo necesitas, también puedes crear una imagen Docker usando el plugin de Spring Boot.
+Agrega la variable de entorno SPRING_PROFILES_ACTIVE=production al ejecutar el contenedor.
 
 ```
 mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=coredev/sistema-fichajes
 ```
 
-## Further readings
+## Lecturas adicionales:
 
 * [Maven docs](https://maven.apache.org/guides/index.html)  
 * [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
